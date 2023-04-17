@@ -1,7 +1,8 @@
 name: CI 
-
+ 
 on: 
-push: 
+  #События, которые запускают 
+  push: 
     branches: [ "main" ] 
   pull_request: 
     branches: [ "main" ] 
