@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>компоненты Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+
+    <!-- HTML -->
+    <div id="app">
+      <h1>Профили</h1>
+      <div class="profilesWrapper">
+        <!-- Здесь нужно разместить компонент Profile -->
+          <Profiles
+            v-for="profiles in profileList"
+            :key="profiles.id"
+            :name="profiles.name"
+            :age="profiles.age"
+            :gender="profiles.gender"
+            :photo="profiles.photoUrl"
+            :country="profiles.country"
+            :city="profiles.city"
+            :contacts="profiles.contacts"
+				></Profiles>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      const Profiles = {
+        data() {
+          return {
+            profileList: [
+              { 
+                id: 0,
+                name: {
+                  first: "Иван",
+                  last: "Иванов"
+                },
+                age: 27,
+                gender: "Мужской",
+                photoUrl: 'https://i.pravatar.cc/300?img=11',
+                country: "Россия",
+                city: "Москва",
+                contacts: {
+                  email: "iivanov@email.ru",
+                  phone: "+7 (382) 790-0888"
+                }
+              },
+              { 
+                id: 1,
+                name: {
+                  first: "Ханна",
+                  last: "Новак"
+                },
+                age: 25,
+                gender: "Женский",
+                photoUrl: 'https://i.pravatar.cc/300?img=23',
+                country: "Чехия",
+                city: "Прага",
+                contacts: {
+                  email: "prague23@email.com",
+                  phone: "+7 (276) 330-4418"
+                }
+              },
+              { 
+                id: 2,
+                name: {
+                  first: "Томас",
+                  last: "Карлссон"
+                },
+                age: 32,
+                gender: "Мужской",
+                photoUrl: 'https://i.pravatar.cc/300?img=53',
+                country: "Норвегия",
+                city: "Берген",
+                contacts: {
+                  email: "carlssontomas@email.com",
+                  phone: "+7 (133) 444-8311"
+                }
+              },
+            ]
+          };
+        },
+      };
+      const app = Vue.createApp(Profiles);
+
+      // Здесь нужно описать новый компонент
+        app.component('Profiles', {
+				props: ['photo', 'name', 'age', 'gender', 'country', 'city', 'contacts'],
+				template: `
+					<div class="profilesItem">
+						<img :src=photo :alt=name />
+            <h2> {{ name.first }} {{ name.last }} </h2>
+						<h3>Обо мне:</h3>
+            <p>Возраст: {{ age }} </p> 
+            <p>Пол: {{ gender }}</p>
+            <h3>Проживание:</h3>
+            <p>Страна: {{ country }} </p> 
+            <p>Город: {{ city }}</p>
+            <h3>Контакты:</h3>
+            <p>Email: {{ contacts.email }} </p> 
+            <p>Номер телефона: {{ contacts.phone }}</p>
+					</div>
+				`,
+			});
+
+      app.mount("#app");
+    </script>
+
+
+    <style>
+      /* Базовые стили */
+      *, *::after, *::before {
+        box-sizing: border-box;
+      }
+      body {
+        padding: 15px 5vw;
+      }
+      h1, h2, h3 {
+        margin-top: 1rem;
+        margin-bottom: 0.4rem;
+      }
+      p {
+        margin-top: 0;
+        margin-bottom: 0.6rem;
+      }
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1.5rem;
+        border-radius: 5px;
+      }
+      /* Стили для обертки профилей */
+      .profilesWrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
+      }
+      /* Стили для отдельного компонента */
+      .profilesItem {
+        color: #3d3d3d;
+        padding: 3rem;
+        background-color: #faf6ff;
+        border-radius: 10px;
+        box-shadow: 3px 2px 3px rgba(0, 0, 0, 0.2);
+        border: 3px solid rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </body>
+</html>
